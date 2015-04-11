@@ -1,6 +1,26 @@
 class TodosController < ApplicationController
   skip_before_filter :verify_authenticity_token
+  after_filter :cors_set_access_control_headers
+
   respond_to :json
+  
+  def cors_set_access_control_headers
+    origin = request.headers['origin']
+    headers['Access-Control-Allow-Origin'] = origin
+    headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
+    headers['Access-Control-Allow-Headers'] = 'X-api-key, Origin, Content-Type, Accept, Authorization, Token'
+    headers['Access-Control-Allow-Credentials'] = 'true'
+    headers['Access-Control-Max-Age'] = "1728000"
+  end
+
+  def preflight
+    ## special method that only matches to OPTIONS requets. 
+    ## Just render nothing, and let the after_filter set the cors headers 
+    render nothing: true, status: :ok
+  end
+
+
+  
 
   def index
     respond_with Todo.all

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  match '/*path', to: 'todos#preflight', via: :all, constraints: {method: 'OPTIONS'} ## preflight, catch 'option' methods on any API endpoint. 
   resources :todos
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

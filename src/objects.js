@@ -9,7 +9,8 @@ var person = {
   // functions are NO different than properties (unlike ruby or java).
   greeting: function() {
     return "Hello, my name is " + this.name + " and I am " + this.age + " years old.";
-  }
+  },
+  meals: [{name: 'bfast', food: 'toast'}, {name:'lunch', food: 'burger'}]
 }
 
 console.log(person.name);
