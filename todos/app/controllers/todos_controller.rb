@@ -5,7 +5,7 @@ class TodosController < ApplicationController
   respond_to :json
   
   def cors_set_access_control_headers
-    origin = request.headers['origin']
+    origin = request.headers['origin'] || 'localhost'
     headers['Access-Control-Allow-Origin'] = origin
     headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
     headers['Access-Control-Allow-Headers'] = 'X-api-key, Origin, Content-Type, Accept, Authorization, Token'
@@ -24,6 +24,7 @@ class TodosController < ApplicationController
 
   def index
     respond_with Todo.all
+    #render json: "oops", status: 422
   end
 
   def show
